@@ -15,10 +15,13 @@ class Operacoes:
         return math.prod(lista)
 
     def subtracao(self, lista):
-        sub = 0
-        for numero in lista:
-            sub -= numero
+        sub = lista[0]
+        for i in range(1, len(lista)):
+            sub -= lista[i]
         return sub
 
-    def divisao(self, numero1, numero2):
-        return numero1/numero2
+    def divisao(self, lista):
+        div = lista[0]
+        for i in range(1, len(lista)):
+            div /= lista[i]
+        return div
