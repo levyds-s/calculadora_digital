@@ -1,30 +1,50 @@
 import tkinter as tk
-from interpretar import Interpretar
 
 
 class App:
     def __init__(self, root):
         self.root = root
+        self.root.geometry("800x600")
         self.root.title("Calculadora Master")
-        self.root.geometry("260x560")
         self.root.configure(background="gray8")
+        self.botoes = []
+        self.linhas = []
+        self.entradas = []
+        self.criar_entradas()
+        self.criar_linhas()
+        self.linhas_de_numeros = self.linhas[1:]
+        self.linhas_de_numeros.reverse()
+        self.criar_botoes()
 
-        self.entry1 = tk.Entry(
-            root, textvariable="separe por espaco")
-        self.entry1.pack(padx=0, pady=100)
+    def criar_linhas(self):
+        for i in range(5):
+            linha = tk.Frame(self.root)
+            linha.pack(fill="both", expand=True)
+            self.linhas.append(linha)
 
-        self.sum_button = tk.Button(
-            root, text="=", command=self.obter_valor)
-        self.sum_button.pack(padx=10, pady=5)
+    def criar_entradas(self):
+        for i in range(2):
+            entrada = tk.Entry(self.root)
+            entrada.pack(fill="both", expand=True)
+            self.entradas.append(entrada)
 
-        self.entry2 = tk.Entry(root)
-        self.entry2.pack(padx=10, pady=5)
+    def criar_botoes(self):
+        operadores = ["AC", "X", "%", "÷"]
+        for i in operadores:
+            button = tk.Button(self.linhas[0], text=i)
+            button.pack(side=tk.LEFT, fill="both", expand=True)
+            self.botoes.append(button)
 
-    def obter_valor(self):
-        texto = self.entry1.get()
-        inter = Interpretar(texto)
-        self.entry2.delete(0, tk.END)
-        self.entry2.insert(0, inter.interpretar())
+        for i in range(10):
+            button = tk.Button(self.linhas_de_numeros[(i//3)], text=i)
+            button.pack(side=tk.LEFT, fill="both", expand=True)
+            self.botoes.append(button)
+
+        sinais = ["x", "-", "+", "="]
+        for i in range(1, 5):
+            button = tk.Button(self.linhas[i], text=sinais[i-1])
+            button.pack(side=tk.LEFT, fill="both", expand=True)
+            self.botoes.append(button)
 
 
 if __name__ == "__main__":
